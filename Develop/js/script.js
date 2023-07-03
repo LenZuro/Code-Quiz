@@ -85,3 +85,51 @@ $('.submit-btn').click(function () {
     loadQuestion(quizData[questionNum], questionNum +1);
 });
 
+var timeLeft = 90;
+var timerInterval = null;
+
+function endgame() {
+    showPage(".three");
+    clearInterval(timerInterval);
+    timeLeft = 90;
+    $("#points").text(scorePoints);
+}
+
+var timeEl = document.querySelector(".time");
+
+function setTime() {
+    timerInterval = setInterval(function () {
+        timeLeft--;
+        console.log("Time Left");
+        timeEl.textContent = timeLeft + "Time Left";
+        if (timeLeft <= 0) {
+            endgame();
+        }
+    }, 1000);
+}
+
+var initals = "";
+
+$(".score-btn").click(function () {
+    var initals = $("input[type = 'text']").val();
+    console.log(typeof localStorage.getItem("points"), "type");
+
+    $(".points").text("Points: " + 0);
+        if (localStorage.getItem("points") == null || scorePoints > localStorage.getItem("points")) {
+            console.log( "If Block");
+            localStorage.setItem("initals" , initals);
+            localStorage.setItem("points" , scorePoints);
+        }
+});
+
+$(".score-btn").click(function () {
+    showPage(".four");
+    $(".winner").text(localStorage.getItem("initals") + "" + localStorage.getItem("points"));
+});
+
+$(".redo-btn").click(function () {
+    showPage(".one");
+    $(".quiz-header").text("Coding Quiz");
+    scorePoints = 0;
+    $("input[type = 'text']").val("");
+});
