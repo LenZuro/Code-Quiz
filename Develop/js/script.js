@@ -61,7 +61,7 @@ var questionNum = 0;
 
 showPage(".one");
 
-$(".stat-btn").click(function (){
+$(".start-btn").click(function (){
     showPage(".two");
     setTime();
     questionNum = 0;
